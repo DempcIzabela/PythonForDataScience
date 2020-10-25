@@ -31,17 +31,19 @@ yelp_class.head()
 X = yelp_class['text']
 y = yelp_class['stars']
 from sklearn.feature_extraction.text import CountVectorizer
+# Convert a collection of text documents to a matrix of token counts
 cv = CountVectorizer()
 X = cv.fit_transform(X)
 # train test split
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3,random_state=42)
 # training a model
+#The multinomial Naive Bayes classifier is suitable for classification with discrete features (e.g., word counts for text classification)
 from sklearn.naive_bayes import MultinomialNB
 nb = MultinomialNB()
 nb.fit(X_train, y_train)
 predictions = nb.predict(X_test)
-# exploratory analysis
+# evaluation
 from sklearn.metrics import confusion_matrix,classification_report
 print(confusion_matrix(y_test,predictions))
 print('\n')
@@ -57,7 +59,6 @@ pipeline = Pipeline([
 X = yelp_class['text']
 y = yelp_class['stars']
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3,random_state=101)
-# May take some time
 pipeline.fit(X_train,y_train)
 predictions = pipeline.predict(X_test)
 #evaluation

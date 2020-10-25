@@ -10,24 +10,30 @@ print(college.info())
 sns.set_style('whitegrid')
 sns.lmplot(x='Room.Board', y='Grad.Rate', data=college, hue='Private', height=6, palette='coolwarm')
 plt.show()
+
 sns.set_style('whitegrid')
 sns.lmplot( x='Outstate', y='F.Undergrad', data=college, hue='Private', size=6)
 plt.show()
+
 g = sns.FacetGrid(college, hue='Private',height=4, palette='coolwarm',aspect=2)
 g.map(plt.hist, "Outstate", alpha=0.5)
 plt.show()
+
 g = sns.FacetGrid(college, hue='Private',height=4, palette='coolwarm',aspect=2)
 g.map(plt.hist, "Grad.Rate", alpha=0.5)
 plt.show()
+
 date = college[college['Grad.Rate']<=100]
 g = sns.FacetGrid(date, hue='Private',height=4, palette='coolwarm',aspect=2)
 g.map(plt.hist, "Grad.Rate", alpha=0.5)
 plt.show()
+
 # k means clustering
 from sklearn.cluster import KMeans
 kmeans = KMeans(n_clusters = 2)
 kmeans.fit(college.drop('Private',axis=1))
 print(kmeans.cluster_centers_)
+
 #model evaluation
 def f(row):
     if row['Private'] == 'Yes':
@@ -38,6 +44,7 @@ def f(row):
 
 college['Cluster'] = college.apply(f, axis=1)
 print(college.head())
+
 from sklearn.metrics import classification_report, confusion_matrix
 print(confusion_matrix(college['Cluster'],kmeans.labels_))
 print(classification_report(college['Cluster'],kmeans.labels_))

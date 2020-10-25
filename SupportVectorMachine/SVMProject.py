@@ -1,7 +1,7 @@
 #import data from seaborn library
 import seaborn as sns
 iris = sns.load_dataset('iris')
-#immports
+#imports
 import matplotlib.pyplot as plt
 #exploratory data analysis
 sns.pairplot(data = iris, hue='species',palette='Dark2')
